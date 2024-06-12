@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
-"""A simple end-to-end (E2E) integration test for `app.py`.
-"""
+"""A module for task 20"""
 import requests
 
 
@@ -11,8 +10,7 @@ BASE_URL = "http://0.0.0.0:5000"
 
 
 def register_user(email: str, password: str) -> None:
-    """Tests registering a user.
-    """
+    """methode that takes 2 args to register a new user"""
     url = "{}/users".format(BASE_URL)
     body = {
         'email': email,
@@ -27,8 +25,7 @@ def register_user(email: str, password: str) -> None:
 
 
 def log_in_wrong_password(email: str, password: str) -> None:
-    """Tests logging in with a wrong password.
-    """
+    """methode that takes 2 args to test the password"""
     url = "{}/sessions".format(BASE_URL)
     body = {
         'email': email,
@@ -39,8 +36,7 @@ def log_in_wrong_password(email: str, password: str) -> None:
 
 
 def log_in(email: str, password: str) -> str:
-    """Tests logging in.
-    """
+    """method that takes 2 args to test the login"""
     url = "{}/sessions".format(BASE_URL)
     body = {
         'email': email,
@@ -53,16 +49,14 @@ def log_in(email: str, password: str) -> str:
 
 
 def profile_unlogged() -> None:
-    """Tests retrieving profile information whilst logged out.
-    """
+    """method that if the informations can be retreived after loggout"""
     url = "{}/profile".format(BASE_URL)
     res = requests.get(url)
     assert res.status_code == 403
 
 
 def profile_logged(session_id: str) -> None:
-    """Tests retrieving profile information whilst logged in.
-    """
+    """method that takes 1 arg to test the retreiving of info when log in"""
     url = "{}/profile".format(BASE_URL)
     req_cookies = {
         'session_id': session_id,
@@ -73,8 +67,7 @@ def profile_logged(session_id: str) -> None:
 
 
 def log_out(session_id: str) -> None:
-    """Tests logging out of a session.
-    """
+    """method that takes 1 arg to test the logout"""
     url = "{}/sessions".format(BASE_URL)
     req_cookies = {
         'session_id': session_id,
@@ -85,8 +78,7 @@ def log_out(session_id: str) -> None:
 
 
 def reset_password_token(email: str) -> str:
-    """Tests requesting a password reset.
-    """
+    """method that takes 1 arg to request the password to log in"""
     url = "{}/reset_password".format(BASE_URL)
     body = {'email': email}
     res = requests.post(url, data=body)
@@ -98,8 +90,7 @@ def reset_password_token(email: str) -> str:
 
 
 def update_password(email: str, reset_token: str, new_password: str) -> None:
-    """Tests updating a user's password.
-    """
+    """method that takes 3 args to update a password"""
     url = "{}/reset_password".format(BASE_URL)
     body = {
         'email': email,
